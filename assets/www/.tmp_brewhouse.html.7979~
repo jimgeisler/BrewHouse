@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>BrewHouse</title>
+		<link href="./css/bootstrap.css" rel="stylesheet">
+		<link href="./css/brewhouse.css" rel="stylesheet">
+	</head>
+	<body>
+		<div  class="hero-unit">
+			<h1>Brewhouse</h1>
+			<form class="form-horizontal">
+			  <legend>Current Status</legend>
+			  <div class="control-group">
+				<label class="control-label">Temperature</label>
+				<div class="controls">
+					<div class="input-append">
+				  <input class="span1" id="rims_temp" value="100" disabled type="text"><span class="add-on">&deg;F</span>
+					</div>
+				</div>
+			  </div>
+			  <div class="control-group">
+				<label class="control-label">State</label>
+				<div class="controls">
+				  <input class="span2" id="state" value="Nothing." disabled type="text">
+				</div>
+			  </div>
+			  <div class="control-group">
+				<label class="control-label">Heating Element</label>
+				<div class="controls">
+					<div class="input-prepend">
+				  		<span class="add-on"><i id="element_icon" class="icon-ban-circle"></i></span><input class="span1" id="element" value="OFF" disabled type="text">
+					</div>
+				</div>
+			  </div>
+			  <div class="control-group">
+				<label class="control-label">Pump</label>
+				<div class="controls">
+					<div class="input-prepend">
+				  		<span class="add-on"><i id="pump_icon" class="icon-ok-circle"></i></span><input class="span1" id="pump" value="ON" disabled type="text">
+					</div>
+				</div>
+			  </div>
+			</form>
+			<form class="form-inline">
+			  <legend>Run a brewing step</legend>
+		      <label>Bring the strike water up to </label>
+			  <input type="text" class="input-small span1" placeholder="160"> <span class="add-on">&deg;F</span>
+			  <button type="submit" class="btn btn-primary">Go</button>
+			  <br/><br/>
+		      <label>Hold the temperature at </label>
+			  <input type="text" class="input-small span1" placeholder="152"> <span class="add-on">&deg;F</span>
+		      <label> for </label>
+			  <input type="text" class="input-small span1" placeholder="60"> <span class="add-on">minutes</span>
+			  <button type="submit" class="btn btn-primary">Go</button>
+			  <br/><br/>
+		      <label>Bring the sparge water up to </label>
+			  <input type="text" class="input-small span1" placeholder="170"> <span class="add-on">&deg;F</span>
+			  <button type="submit" class="btn btn-primary">Go</button>
+			  <br/><br/>
+		      <label>Transfer the sparge water </label>
+			  <button type="submit" class="btn btn-danger">Stop</button>
+			  <br/><br/>
+			</form>
+			
+		</div>
+		<!-- Cordova goodness -->
+		<script type="text/javascript" charset="utf-8" src="./js/cordova-2.0.0.js"></script>
+		<!-- Only jQuery. -->
+		<script type="text/javascript" src="./js/jquery.min.js"></script>
+		
+		<script>
+			var states = {
+				0 : 'Nothing.',
+				1 : 'Running setpoint.',
+				2 : 'Running PID.'
+			}
+			
+			var mc = {
+				update_info : function() {
+					$.get('http://192.168.1.64/status.json', function(data) {
+						console.log(data);
+						if (data.temp != null) $('#rims_temp').val(data.temp);
+						if (data.element == 1) {
+							$('#element').val('ON');
+							$('#element_icon').addClass('icon-ok-circle');
+						} else {
+							$('#element').val('OFF');
+							$('#element_icon').addClass('icon-ban-circle');
+						}
+						if (data.pump == 1) {
+							$('#pump').val('ON');
+							$('#pump_icon').addClass('icon-ok-circle');
+						} else {
+							$('#pump').val('OFF');
+							$('#pump_icon').addClass('icon-ban-circle');
+						}
+						if (data.state != null) {
+							$('#state').val(states[data.state]);
+						}
+						setTimeout(mc.update_info, 10000);
+					});					
+				}
+			}
+			
+			
+			
+			document.addEventListener('deviceready', function(){
+//			$(function() {
+				mc.update_info();
+			});
+		</script>
+		
+	</body>
+</html>

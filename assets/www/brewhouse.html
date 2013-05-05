@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>BrewHouse (1.2)</title>
+		<link href="./css/bootstrap.css" rel="stylesheet">
+		<link href="./css/brewhouse.css" rel="stylesheet">
+	</head>
+	<body>
+		<div class="container">
+		<div class="hero-unit">
+			<h1>Brewhouse</h1>
+			<div class="navbar">
+				<div class="navbar-inner">
+					<a class="brand" href="#">v1.2</a>
+					<ul class="nav">
+						<li class="active"><a id="show_status" href="#">Current Status</a></li>
+						<li><a id="run_a_step" href="#">Run A Step</a></li>
+						<li><a href="#">System Setup</a></li>
+						<li><a href="#">Recipes</a></li>
+					</ul>
+				</div>
+			</div>
+			<form class="form-horizontal" id="status">
+			  <legend>Current Status</legend>
+			  <div class="control-group">
+				<label class="control-label">RIMS Temperature</label>
+				<div class="controls">
+					<div class="input-append">
+				  <input class="span1" id="rims_temp" value="0" disabled type="text"><span class="add-on">&deg;F</span>
+					</div>
+				</div>
+			  </div>
+			  <div class="control-group">
+				<label class="control-label">Box Temperature</label>
+				<div class="controls">
+					<div class="input-append">
+				  <input class="span1" id="box_temp" value="0" disabled type="text"><span class="add-on">&deg;F</span>
+					</div>
+				</div>
+			  </div>
+			  <div class="control-group">
+				<label class="control-label">State</label>
+				<div class="controls">
+				  <input class="span2" id="state" value="Nothing." disabled type="text">
+				</div>
+			  </div>
+			  <div class="control-group">
+				<label class="control-label">Set Temperature</label>
+				<div class="controls">
+				  <div class="input-append">
+				  	<input class="span1" id="setpoint" value="0" disabled type="text"><span class="add-on">&deg;F</span>
+				  </div>
+				</div>
+			  </div>
+			  <div class="control-group">
+				<label class="control-label">RIMS Element</label>
+				<div class="controls">
+					<div class="input-prepend">
+				  		<span class="add-on"><i id="element_icon" class="icon-ban-circle"></i></span><input class="span1" id="element" value="OFF" disabled type="text">
+					</div>
+				</div>
+			  </div>
+			  <div class="control-group">
+				<label class="control-label">Kettle Element</label>
+				<div class="controls">
+					<div class="input-prepend">
+				  		<span class="add-on"><i id="bk_icon" class="icon-ban-circle"></i></span><input class="span1" id="bk" value="OFF" disabled type="text">
+						<span id="bk_active">(Inactive)</span>
+					</div>
+				</div>
+			  </div>
+			  <div class="control-group">
+				<label class="control-label">Pump</label>
+				<div class="controls">
+					<div class="input-prepend">
+				  		<span class="add-on"><i id="pump_icon" class="icon-ban-circle"></i></span><input class="span1" id="pump" value="OFF" disabled type="text">
+					</div>
+				</div>
+			  </div>
+			</form>
+			<form class="form-inline" id="run_command" style="display:none;">
+			  <legend>Run a brewing step</legend>
+		      <label>Bring the strike water up to </label>
+			  <input type="text" class="input-small span1" value="160" id="strike_temp"> <span class="add-on">&deg;F</span>
+			  <button type="submit" class="btn btn-primary" id="execute_strike_water">Go</button>
+			  <br/><br/>
+		      <label>Mash at </label>
+			  <input type="text" class="input-small span1" value="153" id="mash_temp"> <span class="add-on">&deg;F</span>
+			  <label> min of </label>
+			  <input type="text" class="input-small span1" value="152" id="mash_min_temp"> <span class="add-on">&deg;F</span>
+		      <label> for </label>
+			  <input type="text" class="input-small span1" value="60" id="number_of_minutes"> <span class="add-on">minutes</span>
+			  <button type="submit" class="btn btn-primary" id="execute_mash">Go</button>
+			  <br/><br/>
+		      <label>Bring the sparge water up to </label>
+			  <input type="text" class="input-small span1" value="170"> <span class="add-on">&deg;F</span>
+			  <button type="submit" class="btn btn-primary" id="prepare_sparge">Go</button>
+			  <br/><br/>
+		      <label>Time to boil! </label>
+			  <button type="submit" class="btn btn-primary" id="boil">Go</button>
+			  <br/><br/>
+		      <label>Transfer the between vessels </label>
+			  <button type="submit" class="btn btn-primary" id="run_the_pump">Go</button>
+			  <br/><br/>
+		      <label>Shut down the system </label>
+			  <button type="submit" class="btn btn-danger" id="turn_off">Stop</button>
+			</form>
+		</div>
+		</div>
+		<!-- Cordova goodness -->
+		<script type="text/javascript" charset="utf-8" src="./js/cordova-2.0.0.js"></script>
+		<!-- Only jQuery. -->
+		<script type="text/javascript" src="./js/jquery.min.js"></script>
+		<script type="text/javascript" src="./brewhouse.js"></script>
+		
+	</body>
+</html>
