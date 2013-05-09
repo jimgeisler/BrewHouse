@@ -2,3 +2,14 @@ body {
 	background: url('../img/beer_cans.jpeg') no-repeat;
 	padding:40px;
 }
+.container {
+  width: 95%;
+}
+.progress {
+  margin-left: 0px;
+}
+
+button {
+  float:right;
+  margin-left: 4px;
+}
